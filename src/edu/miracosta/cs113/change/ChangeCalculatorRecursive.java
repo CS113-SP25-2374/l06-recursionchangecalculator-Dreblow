@@ -23,10 +23,31 @@ public class ChangeCalculatorRecursive extends ChangeCalculator {
      * @return the total number of unique combinations of coins of which the given value is comprised
      */
     public static List<String> calculateRecursive(int cents) {
-        // TODO:
-        // Implement a recursive solution following the given documentation.
         List<String> combinations = new ArrayList<>();
 
+        calculateRecursiveHelper(cents, 0, 0, 0, 0, combinations, 25);
+
         return combinations;
+    }
+
+    private static void calculateRecursiveHelper(int cents, int quarters, int dimes, int nickels, int pennies, List<String> combinations, int maxCoin) {
+        if (cents == 0) {
+            combinations.add(combinationToString(quarters, dimes, nickels, pennies));
+            return;
+        }
+
+        // Ensure coins are added in descending order to avoid duplicate permutations
+        if (cents >= 25 && maxCoin >= 25) {
+            calculateRecursiveHelper(cents - 25, quarters + 1, dimes, nickels, pennies, combinations, 25);
+        }
+        if (cents >= 10 && maxCoin >= 10) {
+            calculateRecursiveHelper(cents - 10, quarters, dimes + 1, nickels, pennies, combinations, 10);
+        }
+        if (cents >= 5 && maxCoin >= 5) {
+            calculateRecursiveHelper(cents - 5, quarters, dimes, nickels + 1, pennies, combinations, 5);
+        }
+        if (cents >= 1 && maxCoin >= 1) {
+            calculateRecursiveHelper(cents - 1, quarters, dimes, nickels, pennies + 1, combinations, 1);
+        }
     }
 }
