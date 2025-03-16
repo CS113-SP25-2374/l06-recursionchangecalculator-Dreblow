@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChangeCalculatorLinear extends ChangeCalculator {
+    private static double executionTime;
+
     public static List<String> calculateLinear(int cents) {
-        List<String> combinations = new ArrayList<String>();
+        long startTime = System.nanoTime();  // Start timer
+        List<String> combinations = new ArrayList<>();
 
         // Iterate over the number of quarters
         for (int q = 0; q <= cents / COINS[Quarter]; q++) {
@@ -25,6 +28,12 @@ public class ChangeCalculatorLinear extends ChangeCalculator {
             }
         }
 
+        long endTime = System.nanoTime();  // End timer
+        executionTime = (endTime - startTime) / 1_000_000.0;
         return combinations;
+    }
+
+    public static String getTestTime () {
+        return "Linear: Execution time: " + executionTime + " ms";
     }
 }

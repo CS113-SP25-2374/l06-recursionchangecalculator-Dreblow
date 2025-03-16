@@ -24,6 +24,8 @@ public class Main {
             }
 
             System.out.println("Total Results: " + recursiveResult.size() + "/" + linearResult.size());
+            System.out.println(ChangeCalculatorLinear.getTestTime());
+            System.out.println(ChangeCalculatorRecursive.getTestTime());
         }
 
         System.out.println("Jobs done!");

@@ -14,6 +14,7 @@ import java.util.List;
  * verify that all given coin combinations are unique.
  */
 public class ChangeCalculatorRecursive extends ChangeCalculator {
+    private static double executionTime;
 
     /**
      * Wrapper method for determining all possible unique combinations of quarters, dimes, nickels, and pennies that
@@ -23,10 +24,13 @@ public class ChangeCalculatorRecursive extends ChangeCalculator {
      * @return the total number of unique combinations of coins of which the given value is comprised
      */
     public static List<String> calculateRecursive(int cents) {
+        long startTime = System.nanoTime();  // Start timer
         List<String> combinations = new ArrayList<>();
 
         calculateRecursiveHelper(cents, 0, 0, 0, 0, combinations, 25);
 
+        long endTime = System.nanoTime();  // End timer
+        executionTime = (endTime - startTime) / 1_000_000.0;
         return combinations;
     }
 
@@ -49,5 +53,9 @@ public class ChangeCalculatorRecursive extends ChangeCalculator {
         if (cents >= 1 && maxCoin >= 1) {
             calculateRecursiveHelper(cents - 1, quarters, dimes, nickels, pennies + 1, combinations, 1);
         }
+    }
+
+    public static String getTestTime () {
+        return "Recursive: Execution time: " + executionTime + " ms";
     }
 }
